@@ -67,33 +67,33 @@ Masalah riset yang layak harus memenuhi 5 kriteria:
 PROBLEM STATEMENT BUILDER
 
 Domain & Konteks
-  Domain   : ____________________
-  Konteks  : ____________________
+  Domain   : Sistem Rekomendasi / Machine Learning
+  Konteks  : Platform streaming film yang memberikan rekomendasi berdasarkan rating pengguna
 
 System Context
-  Input       : ____________________
-  Process     : ____________________
-  Output      : ____________________
-  Outcome     : ____________________
-  Constraints : ____________________
-  Stakeholders: ____________________
+  Input       : Data rating pengguna terhadap film
+  Process     : Pengolahan data menggunakan metode collaborative filtering dengan Matrix Factorization (SVD)
+  Output      : Daftar rekomendasi film yang dipersonalisasi
+  Outcome     : Peningkatan relevansi rekomendasi yang diterima pengguna
+  Constraints : Data sparsity tinggi, jumlah data terbatas, dan variasi preferensi pengguna
+  Stakeholders: Pengguna, pengembang sistem, dan platform streaming
 
 Fenomena → Problem
-  Fenomena yang diamati             : ____________________
-  Gejala (symptom) yang terukur     : ____________________
-  Masalah yang didiagnosis          : ____________________
-  Masalah riset (researchable)      : ____________________
-  Variabel yang terukur             : ____________________
+  Fenomena yang diamati             : Pengguna kesulitan menemukan film yang sesuai dengan preferensi mereka
+  Gejala (symptom) yang terukur     : Rendahnya tingkat kecocokan rekomendasi dan minimnya interaksi terhadap rekomendasi
+  Masalah yang didiagnosis          : Sistem rekomendasi kurang akurat akibat data rating yang tidak lengkap (sparsity tinggi)
+  Masalah riset (researchable)      : Belum diketahui seberapa efektif metode Matrix Factorization dalam meningkatkan akurasi rekomendasi pada kondisi data yang sparse
+  Variabel yang terukur             : Accuracy, Precision, Recall, F1-score, dan Mean Absolute Error (MAE)
 
 Problem Quality Check
-  [ ] Clarity — Apakah satu orang membaca akan paham?
-  [ ] Measurability — Apakah ada metrik kuantitatif?
-  [ ] Relevance — Apakah penting untuk domain?
-  [ ] Testability — Apakah bisa gagal?
-  [ ] Impact — Apakah ada kontribusi jika terjawab?
+  [☑] Clarity — Apakah satu orang membaca akan paham?
+  [☑] Measurability — Apakah ada metrik kuantitatif?
+  [☑] Relevance — Apakah penting untuk domain?
+  [☑] Testability — Apakah bisa gagal?
+  [☑] Impact — Apakah ada kontribusi jika terjawab?
 
 Problem Statement (1 paragraf):
-  ____________________
+  Pada platform streaming film, pengguna sering mengalami kesulitan dalam menemukan film yang sesuai dengan preferensi mereka karena rekomendasi yang diberikan belum cukup akurat. Hal ini diduga disebabkan oleh data rating pengguna yang tidak lengkap sehingga sistem kesulitan mengenali pola preferensi pengguna. Oleh karena itu, penelitian ini bertujuan untuk mengevaluasi apakah metode Matrix Factorization dapat meningkatkan akurasi sistem rekomendasi dengan menggunakan metrik seperti accuracy, precision, recall, dan MAE, sehingga dapat diketahui seberapa efektif metode tersebut dalam mengatasi permasalahan data yang tidak lengkap.
 ```
 
 ---
@@ -102,18 +102,18 @@ Problem Statement (1 paragraf):
 
 Pilih satu topik di bidang TI yang diminati. Transformasikan melalui 5 tahap Problem Formation Model.
 
-**Topik awal:** ________________________________________
-
+**Topik awal:** Sistem rekomendasi film berbasis collaborative filtering
 | Tahap | Hasil |
 |-------|-------|
-| Reality | *Contoh: Aplikasi e-commerce sering ditinggalkan saat checkout* |
-| Observed Issue (Symptom) | *Contoh: Bounce rate checkout 68%* |
-| Diagnosed Problem (Root Cause) | |
-| Researchable Problem | |
-| Measurable Variable | |
+| Reality | Pengguna kesulitan menemukan film yang sesuai di platform streaming |
+| Observed Issue (Symptom) | Banyak pengguna tidak menonton rekomendasi yang diberikan sistem |
+| Diagnosed Problem (Root Cause) | Sistem rekomendasi kurang akurat karena data rating pengguna tidak lengkap (sparsity tinggi) |
+| Researchable Problem | Belum diketahui seberapa akurat metode Matrix Factorization dalam mengatasi sparsity pada sistem rekomendasi film |
+| Measurable Variable | Accuracy, Precision, Recall, F1-score, dan MAE |
 
-**Apakah terjebak solution-first thinking?** [ ] Ya / [ ] Tidak
-> Jika ya, kembali ke tahap mana? ________________________
+**Apakah terjebak solution-first thinking?** [ ] Ya / [☑] Tidak
+
+alasan: Karena masalah dirumuskan dari fenomena → bukan langsung dari solusi
 
 ---
 
@@ -123,14 +123,14 @@ Gambarkan konteks sistem dari masalah riset di Latihan 1.
 
 | Komponen | Deskripsi |
 |----------|----------|
-| Input | *Contoh: Request HTTP dari browser pengguna* |
-| Process | |
-| Output | |
-| Outcome | |
-| Constraints | |
-| Stakeholders | |
+| Input | Data rating pengguna terhadap film yang diperoleh dari dataset publik MovieLens (https://grouplens.org/datasets/movielens/) |
+| Process | Pengolahan data menggunakan collaborative filtering dan Matrix Factorization (SVD) |
+| Output | Daftar rekomendasi film untuk pengguna |
+| Outcome | Pengguna mendapatkan rekomendasi yang lebih sesuai |
+| Constraints | Data sparsity tinggi, dataset terbatas, keterbatasan jumlah user dan film |
+| Stakeholders | Pengguna, developer sistem, platform streaming |
 
-**Komponen mana yang paling relevan dengan masalah riset?** _______________
+**Komponen mana yang paling relevan dengan masalah riset?** Process dan Constraints
 
 ---
 
@@ -140,18 +140,16 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 
 | Kriteria | Skor (1-5) | Justifikasi |
 |----------|-----------|-------------|
-| Clarity | *Contoh: 4 — cukup jelas tapi perlu spesifikasi dataset* | |
-| Measurability | | |
-| Relevance | | |
-| Testability | | |
-| Impact | | |
+| Clarity | 4 | Masalah cukup jelas, namun bisa diperjelas pada jenis dataset |
+| Measurability | 5 | Menggunakan metrik kuantitatif seperti accuracy dan MAE |
+| Relevance | 5 | Sangat relevan dalam sistem rekomendasi |
+| Testability | 5 | Dapat diuji dengan eksperimen dan evaluasi model |
+| Impact | 4 | Memberikan peningkatan akurasi, namun terbatas pada konteks dataset |
 
-**Skor total:** _____ / 25
+**Skor total:** 23 / 25
 
 **Problem statement versi final (1 paragraf):**
-> ___________________________________________________
-> ___________________________________________________
-
+>Pengguna pada platform streaming sering mengalami kesulitan dalam menemukan film yang sesuai dengan preferensi mereka akibat sistem rekomendasi yang kurang akurat. Hal ini disebabkan oleh tingginya tingkat sparsity pada data rating pengguna yang menghambat sistem dalam mempelajari pola preferensi secara optimal. Oleh karena itu, penelitian ini bertujuan untuk mengevaluasi akurasi metode Matrix Factorization dalam meningkatkan kualitas rekomendasi film dengan menggunakan metrik seperti accuracy, precision, recall, F1-score, dan Mean Absolute Error (MAE), sehingga dapat diketahui efektivitas metode tersebut dalam mengatasi permasalahan sparsity pada sistem rekomendasi.
 ---
 
 ## Refleksi
@@ -159,5 +157,4 @@ Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
 > Bandingkan "masalah" yang biasa ditemui saat coding (bug, error) dengan masalah riset. Apa perbedaan fundamental dalam cara mendefinisikan dan mendekati keduanya?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+Masalah dalam coding biasanya berupa bug atau error yang memiliki penyebab langsung dan solusi yang jelas, seperti kesalahan sintaks atau logika program. Sedangkan masalah riset lebih kompleks karena berfokus pada menemukan dan membuktikan penyebab suatu fenomena yang belum tentu terlihat secara langsung. Dalam riset, masalah harus dirumuskan secara sistematis, dapat diukur, dan dapat diuji, bukan hanya sekadar diperbaiki seperti pada kasus bug dalam pemrograman.
