@@ -107,7 +107,9 @@ Baseline Selection:
 Gunakan topik riset dari WS-02. Cari minimal 5 paper relevan menggunakan Google Scholar atau database lain.
 
 **Topik riset:** Pengaruh penggunaan AI (ChatGPT) terhadap self-diagnosis Borderline Personality Disorder (BPD) pada mahasiswa
+
 **Query pencarian:** ("AI chatbot" OR "ChatGPT") AND ("self diagnosis" OR "mental health self assessment") AND ("BPD" OR "borderline personality disorder") AND ("students")
+
 **Database:** Google Scholar, PubMed
 
 | # | Study | Tahun | Method | Dataset | Result | Limitasi |
