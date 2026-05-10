@@ -68,36 +68,38 @@ Ancaman validitas harus diidentifikasi **sebelum** eksperimen dan mitigasinya di
 ```
 EXPERIMENT DESIGN
 
-Research Question : ____________________
-Hypothesis        : ____________________
-Tipe Eksperimen   : [ ] Comparison  [ ] Ablation  [ ] Parameter
+Research Question :  Bagaimana pengaruh penggunaan ChatGPT terhadap kecenderungan self-diagnosis Borderline Personality Disorder (BPD) pada mahasiswa, menggunakan metode survei kuantitatif dengan analisis regresi, metrik berupa skor skala Likert dan nilai korelasi, dataset berupa data kuesioner mahasiswa, serta dibandingkan dengan baseline mahasiswa yang tidak menggunakan AI dalam self-diagnosis?
+Hypothesis        : Tidak terdapat pengaruh yang signifikan antara penggunaan ChatGPT dengan kecenderungan self-diagnosis BPD pada mahasiswa
+Tipe Eksperimen   : [✓] Comparison  [ ] Ablation  [ ] Parameter
 
 Kondisi Eksperimen:
+
 | Kondisi | Deskripsi | IV Value | CV Settings |
-|---------|-----------|----------|-------------|
-| Control |           |          |             |
-| Treatment |         |          |             |
+|----------|------------|-----------|--------------|
+| Control | Mahasiswa yang jarang atau tidak menggunakan ChatGPT untuk mencari informasi mental health | Penggunaan ChatGPT rendah | Dataset, preprocessing, dan metode analisis sama |
+| Treatment | Mahasiswa yang sering menggunakan ChatGPT untuk mencari informasi mental health | Penggunaan ChatGPT tinggi | Dataset, preprocessing, dan metode analisis sama |
 
 Fairness Checklist:
-  [ ] Dataset identik untuk semua kondisi
-  [ ] Preprocessing setara
-  [ ] Tuning effort setara
-  [ ] Environment identik
-  [ ] Metrik evaluasi sama
+[✓] Dataset identik untuk semua kondisi
+[✓] Preprocessing setara
+[✓] Tuning effort setara
+[✓] Environment identik
+[✓] Metrik evaluasi sama
 
 Threat Analysis:
+
 | Threat Type | Ancaman Spesifik | Mitigasi |
-|-------------|-----------------|----------|
-| Internal    |                 |          |
-| External    |                 |          |
-| Construct   |                 |          |
-| Conclusion  |                 |          |
+|--------------|------------------|-----------|
+| Internal | Responden bisa memberikan jawaban tidak jujur | Menggunakan kuesioner anonim |
+| External | Sampel hanya berasal dari mahasiswa tertentu | Menyebarkan kuesioner ke beberapa mahasiswa dengan latar berbeda |
+| Construct | Pertanyaan kuesioner tidak benar-benar mengukur self-diagnosis | Menggunakan indikator berdasarkan literatur sebelumnya |
+| Conclusion | Jumlah responden terlalu sedikit | Menambah jumlah responden agar hasil lebih valid |
 
 Statistical Plan:
-  Uji statistik   : ____________________
-  Justifikasi      : ____________________
-  Alpha            : ____________________
-  Effect size min  : ____________________
+Uji statistik   : Korelasi Spearman / Regresi sederhana
+Justifikasi     : Data menggunakan skala Likert sehingga sesuai untuk analisis hubungan antar variabel
+Alpha           : 0,05
+Effect size min : Korelasi ≥ 0,3
 ```
 
 ---
@@ -106,13 +108,13 @@ Statistical Plan:
 
 Susun desain eksperimen berdasarkan RQ, variabel, dan sistem dari WS-04 sampai WS-06.
 
-**RQ:** __________________________________________________
-**Tipe eksperimen:** [ ] Comparison / [ ] Ablation / [ ] Parameter
+**RQ:** Bagaimana pengaruh penggunaan ChatGPT terhadap kecenderungan self-diagnosis Borderline Personality Disorder (BPD) pada mahasiswa, menggunakan metode survei kuantitatif dengan analisis regresi, metrik berupa skor skala Likert dan nilai korelasi, dataset berupa data kuesioner mahasiswa, serta dibandingkan dengan baseline mahasiswa yang tidak menggunakan AI dalam self-diagnosis?
+**Tipe eksperimen:** [✓] Comparison / [ ] Ablation / [ ] Parameter
 
 | Kondisi | Deskripsi | IV Value | CV Settings |
-|---------|-----------|----------|-------------|
-| Control | *Contoh: RF baseline dari literatur* | *RF* | *Dataset X, 80:20 split, seed 42* |
-| Treatment | | | |
+|----------|------------|-----------|--------------|
+| Control | Mahasiswa yang tidak menggunakan ChatGPT untuk self-diagnosis | Penggunaan rendah | Dataset dan preprocessing sama |
+| Treatment | Mahasiswa yang menggunakan ChatGPT untuk mencari informasi mental health | Penggunaan tinggi | Dataset dan preprocessing sama |
 
 ---
 
@@ -121,15 +123,16 @@ Susun desain eksperimen berdasarkan RQ, variabel, dan sistem dari WS-04 sampai W
 Evaluasi apakah desain eksperimen di Latihan 1 sudah fair.
 
 | Kriteria | Status | Detail |
-|----------|--------|--------|
-| Dataset identik | *Contoh: ✅ — sama-sama pakai CIC-MalMem-2022* | |
-| Preprocessing setara | | |
-| Tuning effort setara | | |
-| Environment identik | | |
-| Metrik evaluasi sama | | |
+|-----------|--------|--------|
+| Dataset identik | ✅ | Menggunakan sumber data dan responden yang sama |
+| Preprocessing setara | ✅ | Semua data teks dibersihkan dengan metode yang sama |
+| Tuning effort setara | ✅ | Analisis dilakukan dengan parameter yang sama |
+| Environment identik | ✅ | Analisis dilakukan pada sistem dan tools yang sama |
+| Metrik evaluasi sama | ✅ | Semua kondisi menggunakan skor Likert dan analisis NLP yang sama |
 
-**Ada yang tidak fair?** [ ] Ya / [ ] Tidak
-> Jika ya, bagaimana cara memperbaikinya? ________________
+**Ada yang tidak fair?** [ ] Ya / [✓] Tidak
+> Jika ya, bagaimana cara memperbaikinya? 
+Semua kondisi eksperimen menggunakan metode dan proses yang sama sehingga perbandingan tetap adil.
 
 ---
 
@@ -138,15 +141,15 @@ Evaluasi apakah desain eksperimen di Latihan 1 sudah fair.
 Identifikasi ancaman validitas untuk desain eksperimen ini.
 
 | Threat Type | Ancaman Spesifik | Mitigasi |
-|-------------|-----------------|----------|
-| Internal | *Contoh: Data leakage antara train-test* | *Contoh: Gunakan stratified split, validasi tidak ada overlap* |
-| External | | |
-| Construct | | |
-| Conclusion | | |
+|--------------|------------------|-----------|
+| Internal | Jawaban responden bisa dipengaruhi opini pribadi atau tren media sosial | Menggunakan pertanyaan yang lebih spesifik dan netral |
+| External | Hasil penelitian mungkin tidak mewakili seluruh mahasiswa | Menambah variasi responden dari beberapa jurusan |
+| Construct | Self-diagnosis sulit diukur secara langsung | Menggunakan indikator berdasarkan penelitian sebelumnya |
+| Conclusion | Jumlah data kurang sehingga hasil kurang kuat | Menambah jumlah responden dan melakukan validasi data |
 
-**Ancaman mana yang paling sulit dimitigasi?** _____________
+**Ancaman mana yang paling sulit dimitigasi?** Construct Validity
 **Mengapa?**
-> ___________________________________________________
+Karena self-diagnosis merupakan kondisi psikologis yang bersifat subjektif sehingga sulit diukur secara benar hanya melalui kuesioner dan analisis teks.
 
 ---
 
@@ -155,6 +158,6 @@ Identifikasi ancaman validitas untuk desain eksperimen ini.
 > Sebuah paper melaporkan "metode kami mengalahkan semua baseline." Apa 3 pertanyaan pertama yang harus diajukan untuk mengevaluasi klaim ini?
 
 **Jawaban:**
-1. ___________________________________________________
-2. ___________________________________________________
-3. ___________________________________________________
+1. Apakah semua baseline diuji menggunakan dataset dan kondisi yang sama?
+2. Apakah metode evaluasi dan metrik yang digunakan sudah adil untuk semua metode?
+3. Apakah jumlah data dan proses preprocessing dijelaskan dengan jelas sehingga hasil dapat dipercaya?
