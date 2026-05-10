@@ -66,19 +66,19 @@ Metrik harus ditentukan **sebelum** eksperimen. Memilih metrik setelah melihat d
 ```
 VARIABLE & METRIC DEFINITION
 
-Research Question: ____________________
+Research Question: Bagaimana pengaruh penggunaan ChatGPT terhadap kecenderungan self-diagnosis Borderline Personality Disorder (BPD) pada mahasiswa, menggunakan metode survei kuantitatif dengan analisis regresi, metrik berupa skor skala Likert dan nilai korelasi, dataset berupa data kuesioner mahasiswa, serta dibandingkan dengan baseline mahasiswa yang tidak menggunakan AI dalam self-diagnosis?
 
 | Variabel | Tipe | Konsep | Metrik | Skala | Satuan | Cara Mengukur | Justifikasi |
 |----------|------|--------|--------|-------|--------|---------------|-------------|
-|          | IV   |        |        |       |        |               |             |
-|          | DV   |        |        |       |        |               |             |
-|          | CV   |        |        |       |        |               |             |
+|Penggunaan ChatGPT| IV   |Tingkat penggunaan AI untuk mencari informasi mental health|Frekuensi penggunaan, tingkat kepercayaan terhadap jawaban AI|Ordinal (Likert 1–5)|Skor|Kuesioner skala Likert|Mewakili intensitas interaksi mahasiswa dengan AI|
+|Self-diagnosis BPD| DV   |Kecenderungan mahasiswa menyimpulkan dirinya memiliki BPD tanpa validasi profesional|Tingkat persetujuan terhadap pernyataan self-diagnosis| Ordinal (Likert 1–5)|Skor|Kuesioner skala Likert dan analisis teks|Mengukur kecenderungan self-diagnosis berdasarkan interpretasi informasi AI|
+|Latar belakang responden| CV   |Faktor yang dapat mempengaruhi hasil penelitian|Jurusan, pengalaman konsultasi, literasi mental health|Nominal|Kategori|Pertanyaan identitas dan pengalaman|Mengurangi bias dari faktor luar|
 
 Alignment Check:
   RQ → Concept → Variable → Metric → Data → Result
-  [ ] Setiap langkah terdokumentasi
-  [ ] Tidak ada "lompatan logis"
-  [ ] Metrik mengukur apa yang dimaksud (construct validity)
+  [✓] Setiap langkah terdokumentasi
+  [✓] Tidak ada "lompatan logis"
+  [✓] Metrik mengukur apa yang dimaksud (construct validity)
 ```
 
 ---
@@ -87,16 +87,17 @@ Alignment Check:
 
 Gunakan RQ dari WS-04. Definisikan variabel dan metriknya.
 
-**RQ:** __________________________________________________
+**RQ:** Bagaimana pengaruh penggunaan ChatGPT terhadap kecenderungan self-diagnosis Borderline Personality Disorder (BPD) pada mahasiswa, menggunakan metode survei kuantitatif dengan analisis regresi, metrik berupa skor skala Likert dan nilai korelasi, dataset berupa data kuesioner mahasiswa, serta dibandingkan dengan baseline mahasiswa yang tidak menggunakan AI dalam self-diagnosis?
 
 | Variabel | Tipe | Konsep Abstrak | Metrik Konkret | Skala (NOIR) | Satuan |
-|----------|------|---------------|----------------|-------------|--------|
-| *Contoh: Jenis model* | *IV* | *Pendekatan klasifikasi* | *Categorical: CNN vs RF* | *Nominal* | *—* |
-| | DV | | | | |
-| | CV | | | | |
+|----------|------|----------------|----------------|---------------|---------|
+| Penggunaan ChatGPT | IV | Intensitas penggunaan AI dalam mencari informasi mental health | Frekuensi penggunaan ChatGPT dan tingkat kepercayaan terhadap jawaban AI | Ordinal | Skor Likert 1–5 |
+| Self-diagnosis BPD | DV | Kecenderungan mahasiswa merasa memiliki BPD tanpa diagnosis profesional | Tingkat persetujuan terhadap pernyataan self-diagnosis | Ordinal | Skor Likert 1–5 |
+| Literasi mental health | CV | Tingkat pemahaman mahasiswa terhadap kesehatan mental | Tingkat pengetahuan dan pemahaman mental health | Ordinal | Skor Likert 1–5 |
 
-**Apakah ada lompatan logis dalam rantai?** [ ] Ya / [ ] Tidak
-> Jika ya, di mana? ____________________________________
+**Apakah ada lompatan logis dalam rantai?** [✓] Ya / [ ] Tidak
+> Jika ya, di mana? 
+Variabel dan metrik yang digunakan sudah sesuai dengan konsep penelitian dan dapat diukur secara langsung melalui kuesioner.
 
 ---
 
@@ -105,16 +106,17 @@ Gunakan RQ dari WS-04. Definisikan variabel dan metriknya.
 Evaluasi metrik DV yang dipilih di Latihan 1 menggunakan 3 kriteria.
 
 | Kriteria | Skor (1-5) | Justifikasi |
-|----------|-----------|-------------|
-| Representative | *Contoh: 4 — F1-Score mewakili keseimbangan precision-recall* | |
-| Sensitive | | |
-| Feasible | | |
+|-----------|-------------|--------------|
+| Representative | 4 | Skala Likert cukup mewakili tingkat penggunaan ChatGPT dan kecenderungan self-diagnosis pada mahasiswa |
+| Sensitive | 4 | Perbedaan skor dapat menunjukkan variasi tingkat self-diagnosis antar responden |
+| Feasible | 5 | Data mudah dikumpulkan melalui kuesioner online dan dapat dianalisis dengan sederhana |
 
-**Apakah perlu secondary metric?** [ ] Ya / [ ] Tidak
-> Jika ya, apa dan mengapa? _____________________________
+**Apakah perlu secondary metric?** [✓] Ya / [ ] Tidak
+> Jika ya, apa dan mengapa? 
+Secondary metric berupa analisis teks (keyword extraction dan sentiment analysis) digunakan untuk mendukung hasil kuantitatif dan melihat pola bahasa self-diagnosis pada jawaban responden.
 
 **Contoh kasus ceiling effect untuk metrik ini:**
-> ___________________________________________________
+> Jika sebagian besar responden memilih nilai tertinggi pada skala Likert, maka perbedaan antar responden menjadi sulit terlihat dan sensitivitas metrik menurun.
 
 ---
 
@@ -123,11 +125,11 @@ Evaluasi metrik DV yang dipilih di Latihan 1 menggunakan 3 kriteria.
 Bayangkan data yang akan dikumpulkan dari eksperimen. Evaluasi 4 dimensi kualitas data.
 
 | Dimensi | Pertanyaan | Jawaban | Strategi Mitigasi |
-|---------|-----------|---------|------------------|
-| Completeness | *Apakah semua data point terkumpul?* | | |
-| Consistency | *Apakah ada kontradiksi internal?* | | |
-| Validity | *Apakah benar-benar mengukur yang dimaksud?* | | |
-| Representativeness | *Apakah sampel mewakili populasi target?* | | |
+|----------|-------------|----------|-------------------|
+| Completeness | Apakah semua data point terkumpul? | Ada kemungkinan responden tidak mengisi semua pertanyaan | Membuat pertanyaan penting wajib diisi pada Google Form |
+| Consistency | Apakah ada kontradiksi internal? | Beberapa jawaban responden bisa tidak konsisten | Melakukan pengecekan dan penyaringan data sebelum analisis |
+| Validity | Apakah benar-benar mengukur yang dimaksud? | Kuesioner harus sesuai dengan konsep self-diagnosis dan penggunaan AI | Menggunakan indikator berdasarkan jurnal dan penelitian sebelumnya |
+| Representativeness | Apakah sampel mewakili populasi target? | Sampel mungkin belum mewakili seluruh mahasiswa | Menyebarkan kuesioner ke mahasiswa dari beberapa jurusan atau angkatan |
 
 ---
 
@@ -136,5 +138,4 @@ Bayangkan data yang akan dikumpulkan dari eksperimen. Evaluasi 4 dimensi kualita
 > Mengapa memilih metrik setelah melihat data dianggap p-hacking? Apa bedanya dengan eksplorasi data yang sah?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+Memilih metrik setelah melihat data dianggap p-hacking karena peneliti dapat memilih metrik yang paling menguntungkan hasil penelitian sehingga hasil menjadi bias. Hal tersebut berbeda dengan eksplorasi data yang sah, karena eksplorasi dilakukan untuk memahami pola data dan dilaporkan sebagai temuan tambahan, bukan untuk mengganti hipotesis atau metrik utama yang sudah ditentukan sebelumnya.
