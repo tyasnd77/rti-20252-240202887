@@ -67,25 +67,27 @@ Jika variabel tidak bisa di-map ke komponen apapun → arsitektur perlu didesain
 ```
 SYSTEM-EXPERIMENT MAPPING
 
-Research Question: ____________________
+Research Question:
+Bagaimana pengaruh penggunaan ChatGPT terhadap kecenderungan self-diagnosis Borderline Personality Disorder (BPD) pada mahasiswa, menggunakan metode survei kuantitatif dengan analisis regresi, metrik berupa skor skala Likert dan nilai korelasi, dataset berupa data kuesioner mahasiswa, serta dibandingkan dengan baseline mahasiswa yang tidak menggunakan AI dalam self-diagnosis?
 
 Variable → Component Mapping:
+
 | Variabel | Tipe | Komponen Sistem | Cara Manipulasi/Pengukuran |
-|----------|------|-----------------|---------------------------|
-|          | IV   |                 |                           |
-|          | DV   |                 |                           |
-|          | CV   |                 |                           |
+|----------|------|-----------------|----------------------------|
+| Penggunaan ChatGPT | IV | Modul input kuesioner & dataset teks | Mengukur frekuensi penggunaan dan tingkat kepercayaan terhadap AI |
+| Self-diagnosis BPD | DV | Modul analisis hasil dan NLP | Mengukur skor self-diagnosis, keyword, dan sentimen |
+| Literasi mental health | CV | Modul data responden | Dikontrol melalui pertanyaan latar belakang responden |
 
 4 Prinsip Desain:
-  [ ] Traceability — Setiap komponen bisa ditelusuri ke variabel
-  [ ] Variable Isolation — IV bisa diubah tanpa mengubah CV
-  [ ] Measurement Integration — Pengukuran DV built-in
-  [ ] Reproducibility — Setup bisa direkonstruksi
+[✓] Traceability — Setiap komponen bisa ditelusuri ke variabel
+[✓] Variable Isolation — IV bisa diubah tanpa mengubah CV
+[✓] Measurement Integration — Pengukuran DV built-in
+[✓] Reproducibility — Setup bisa direkonstruksi
 
 Experimental Setup:
-  Input data     : ____________________
-  Parameter      : ____________________
-  Output format  : ____________________
+Input data     : Dataset Reddit mental health dan data kuesioner mahasiswa
+Parameter      : Frekuensi penggunaan ChatGPT, skor Likert, keyword self-diagnosis
+Output format  : Grafik, tabel hasil analisis, dan nilai korelasi
 ```
 
 ---
@@ -94,16 +96,17 @@ Experimental Setup:
 
 Gunakan RQ dan variabel dari WS-05. Petakan ke komponen sistem.
 
-**RQ:** __________________________________________________
+**RQ:**Bagaimana pengaruh penggunaan ChatGPT terhadap kecenderungan self-diagnosis Borderline Personality Disorder (BPD) pada mahasiswa, menggunakan metode survei kuantitatif dengan analisis regresi, metrik berupa skor skala Likert dan nilai korelasi, dataset berupa data kuesioner mahasiswa, serta dibandingkan dengan baseline mahasiswa yang tidak menggunakan AI dalam self-diagnosis?
 
 | Variabel | Tipe | Komponen Sistem | Cara Manipulasi / Pengukuran |
-|----------|------|-----------------|---------------------------|
-| *Contoh: Jenis model* | *IV* | *Modul classifier (swap RF ↔ CNN)* | *Ganti config `model_type`* |
-| | DV | | |
-| | CV | | |
+|----------|------|-----------------|------------------------------|
+| Penggunaan ChatGPT | IV | Modul input data | Mengukur intensitas penggunaan ChatGPT melalui kuesioner |
+| Self-diagnosis BPD | DV | Modul NLP dan analisis | Mengukur keyword self-diagnosis dan sentimen |
+| Literasi mental health | CV | Modul profil responden | Dikontrol menggunakan pertanyaan tambahan pada kuesioner |
 
-**Apakah semua variabel bisa di-map?** [ ] Ya / [ ] Tidak
-> Jika tidak, komponen apa yang perlu ditambahkan? _________
+**Apakah semua variabel bisa di-map?** [✓] Ya / [ ] Tidak
+> Jika tidak, komponen apa yang perlu ditambahkan? 
+Semua variabel sudah memiliki komponen sistem yang sesuai untuk proses pengukuran dan analisis.
 
 ---
 
@@ -112,16 +115,15 @@ Gunakan RQ dan variabel dari WS-05. Petakan ke komponen sistem.
 Evaluasi desain sistem terhadap 4 prinsip.
 
 | Prinsip | Status | Bukti / Penjelasan |
-|---------|--------|-------------------|
-| Traceability | *Contoh: ✅ — setiap modul punya label variabel* | |
-| Modularity | | |
-| Controllability | | |
-| Measurability | | |
+|----------|--------|--------------------|
+| Traceability | ✅ | Setiap komponen sistem berhubungan langsung dengan variabel penelitian |
+| Modularity | ✅ | Modul input, NLP, dan analisis dipisahkan sehingga mudah dikembangkan |
+| Controllability | ✅ | Variabel kontrol dipisahkan dalam data responden |
+| Measurability | ✅ | Sistem menghasilkan skor, keyword, dan hasil sentimen secara otomatis |
 
-**Prinsip mana yang paling sulit dipenuhi?** _______________
+**Prinsip mana yang paling sulit dipenuhi?** Measurability
 **Strategi untuk mengatasinya:**
-> ___________________________________________________
-
+> Menggunakan indikator yang jelas dan preprocessing data agar hasil NLP lebih konsisten dan mudah dianalisis.
 ---
 
 ## Latihan 3 — Ablation Study Planning
@@ -129,15 +131,15 @@ Evaluasi desain sistem terhadap 4 prinsip.
 Jika sistem memiliki 3 komponen utama, rencanakan ablation study.
 
 | Kondisi | Komponen A | Komponen B | Komponen C | Hasil yang Diharapkan |
-|---------|-----------|-----------|-----------|----------------------|
-| Full | *Contoh: ✅ CNN* | *Contoh: ✅ Temporal features* | *Contoh: ✅ Z-score norm* | *Baseline penuh* |
-| – A | ❌ (ganti RF) | ✅ | ✅ | |
-| – B | ✅ | ❌ (tanpa temporal) | ✅ | |
-| – C | ✅ | ✅ | ❌ (tanpa normalisasi) | |
+|----------|-------------|-------------|-------------|------------------------|
+| Full | ✅ Kuesioner | ✅ Keyword Extraction | ✅ Sentiment Analysis | Hasil analisis lengkap |
+| – A | ❌ | ✅ | ✅ | Hasil hanya berdasarkan teks tanpa data responden |
+| – B | ✅ | ❌ | ✅ | Pola keyword self-diagnosis tidak terlihat jelas |
+| – C | ✅ | ✅ | ❌ | Emosi atau sentimen responden tidak terlihat |
 
-**Komponen mana yang diprediksi paling berkontribusi?** _____
+**Komponen mana yang diprediksi paling berkontribusi?** Keyword Extraction
 **Mengapa?**
-> ___________________________________________________
+> Karena keyword extraction dapat menunjukkan pola kata yang mengarah pada self-diagnosis seperti “merasa BPD”, “takut ditinggalkan”, atau “emosi tidak stabil”.
 
 ---
 
@@ -146,5 +148,6 @@ Jika sistem memiliki 3 komponen utama, rencanakan ablation study.
 > Apa risiko jika sistem dibangun seperti produk (monolitik, fitur lengkap) lalu baru dilakukan eksperimen? Mengapa arsitektur modular penting untuk riset?
 
 **Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+Jika sistem dibangun seperti produk yang monolitik dan terlalu banyak fitur, maka proses eksperimen menjadi sulit karena variabel penelitian tidak dapat dipisahkan dengan jelas. Hal tersebut dapat menyebabkan hasil penelitian sulit dianalisis dan kurang valid.
+
+Arsitektur modular penting dalam riset karena setiap komponen dapat diuji secara terpisah, sehingga hubungan antara variabel dan hasil penelitian menjadi lebih jelas serta lebih mudah direproduksi.
