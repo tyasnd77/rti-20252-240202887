@@ -73,32 +73,39 @@ Mengandalkan "install library terbaru" berbahaya: versi berbeda = perilaku berbe
 EXPERIMENT SETUP DOCUMENTATION
 
 Hardware:
-  CPU     : ____________________
-  RAM     : ____________________
-  GPU     : ____________________
-  Storage : ____________________
+  CPU     : Intel Core i5
+  RAM     : 8 GB
+  GPU     : CPU Only
+  Storage : 512 GB SSD
 
 Software:
-  OS        : ____________________
-  Runtime   : ____________________
-  Framework : ____________________
+  OS        : Windows 11
+  Runtime   : Python 3.11
+  Framework : NLTK, Scikit-Learn
 
 Dependencies:
-| Library | Version | Sumber | Hash/Checksum |
-|---------|---------|--------|---------------|
-|         |         |        |               |
-|         |         |        |               |
+| Library      | Version |
+|--------------|---------|
+| pandas       | 2.2.2 |
+| numpy        | 1.26.4 |
+| nltk         | 3.9 |
+| scikit-learn | 1.5.1 |
+| matplotlib   | 3.9.2 |
+| wordcloud    | 1.9.3 |
 
 Konfigurasi:
-  Config file     : ____________________
-  Random seed     : ____________________
-  Hyperparameters : ____________________
+  Config file     : config.yaml
+  Random seed     : 42
+  Hyperparameters :
+      max_features = 5000
+      ngram_range = (1,2)
+      test_size = 0.2
 
 Reproducibility Check:
-  [ ] Dependency terdokumentasi (requirements.txt / lock file)
-  [ ] Seed ditetapkan di semua level (Python, NumPy, framework)
-  [ ] Config di version control
-  [ ] README instruksi reproduksi lengkap
+  [✓] Dependency terdokumentasi
+  [✓] Seed ditetapkan
+  [✓] Config tersimpan
+  [✓] README tersedia
 ```
 
 ---
@@ -109,78 +116,151 @@ Dokumentasikan environment untuk eksperimen Anda (boleh environment saat ini ata
 
 | Komponen | Spesifikasi |
 |----------|------------|
-| CPU | *Contoh: Intel Core i7-12700H, 14 Core* |
-| RAM | *Contoh: 32 GB DDR5* |
-| GPU | *Contoh: NVIDIA RTX 3060 6GB / CPU-only jika tidak ada GPU* |
-| OS | *Contoh: Ubuntu 22.04 LTS / Windows 11* |
-| Runtime | |
-| Framework | |
-| Random Seed | |
+| CPU | Intel Core i5 / AMD Ryzen 5 |
+| RAM | 8 GB |
+| GPU | CPU-Only |
+| OS | Windows 11 |
+| Runtime | Python 3.11 |
+| Framework |Scikit-Learn, NLTK |
+| Random Seed | 42 |
 
 **Dependencies (minimal 5):**
 
-| Library | Version | Alasan Dibutuhkan |
-|---------|---------|-------------------|
-| *Contoh: scikit-learn* | *1.3.2* | *Klasifikasi + evaluasi metrik* |
-| | | |
-| | | |
-| | | |
-| | | |
+| Library      | Version | Alasan Dibutuhkan                 |
+| ------------ | ------- | --------------------------------- |
+| pandas       | 2.2.2   | Membaca dan mengolah dataset CSV  |
+| numpy        | 1.26.4  | Operasi numerik                   |
+| nltk         | 3.9     | Tokenisasi dan preprocessing teks |
+| scikit-learn | 1.5.1   | TF-IDF, klasifikasi, evaluasi     |
+| matplotlib   | 3.9.2   | Visualisasi hasil                 |
+| wordcloud    | 1.9.3   | Visualisasi keyword dominan       |
+| seaborn      | 0.13.2  | Analisis distribusi data          |
+
 
 ---
 
 ## Latihan 2 — Repeatability Test Plan
 
-Rancang tes repeatability sederhana: jalankan kode yang sama 3× di environment yang sama.
+Skenario Pengujian
 
-| Run | Seed | Metrik Utama | Hasil Sama? |
-|-----|------|-------------|-------------|
-| 1 | *Contoh: 42* | *Contoh: Accuracy* | — |
-| 2 | | | [ ] Ya / [ ] Tidak |
-| 3 | | | [ ] Ya / [ ] Tidak |
+Eksperimen dijalankan sebanyak 3 kali menggunakan dataset:
+
+Baseline: 26de4894-652b-4236-bbdc-6fe3a5d63945.csv
+Intervensi: personality_disorder_subset_2kolom_NPL.csv
+
+Parameter dan seed dibuat sama pada setiap pengujian.
+
+| Run | Seed | Metrik Utama                      | Hasil Sama? |
+| --- | ---- | --------------------------------- | ----------- |
+| 1   | 42   | Accuracy Sentiment Classification | —           |
+| 2   | 42   | Accuracy Sentiment Classification | ☑ Ya        |
+| 3   | 42   | Accuracy Sentiment Classification | ☑ Ya        |
+
 
 **Jika hasil berbeda, kemungkinan penyebab:**
 
-> Penyebab umum non-repeatability:
-> - **Thermal throttling** — CPU/GPU overheating pada run berturut-turut → clock speed turun → waktu eksekusi berubah
-> - **Background process** — antivirus scan, update OS, atau cloud sync aktif saat run berlangsung
-> - **Cache dari run sebelumnya** — hasil tersimpan di memori/disk sehingga run berikutnya tidak menjalankan komputasi penuh
-> - **Random state tidak dikontrol di semua level** — Python seed di-set, tapi NumPy/PyTorch/TensorFlow punya seed independen
+- Random seed tidak dikunci.
+- Data split berubah setiap run.
+- Cache notebook masih tersimpan.
+- Background process menggunakan RAM/CPU.
+- Versi library berbeda.
 
 ___________________________________________________
 
 **Checklist kontrol yang sudah diterapkan:**
-- [ ] Random seed di-set di semua level
-- [ ] Tidak ada background process yang mengganggu
-- [ ] Cache dibersihkan antar-run
-- [ ] Config file yang sama untuk semua run
+- [✓] Random seed di-set di Python dan NumPy
+- [✓] Tidak ada proses lain yang mengganggu
+- [✓] Cache dibersihkan
+- [✓] Menggunakan file konfigurasi yang sama
 
 ---
 
 ## Latihan 3 — README Eksperimen
 
-Tulis README minimum untuk eksperimen Anda (6 komponen wajib).
 
 ```
-# Judul Eksperimen: ____________________
+# Judul Eksperimen
+
+Analisis Perbandingan Sentimen dan Karakteristik Linguistik pada Dataset Kesehatan Mental Umum dan Dataset Teks yang Mengandung Indikasi Personality Disorder Menggunakan Natural Language Processing
 
 ## 1. Environment
-> (Salin spesifikasi dari Latihan 1)
+
+OS          : Windows 11
+Python      : 3.11
+RAM         : 8 GB
+Framework   : NLTK, Scikit-Learn
+Random Seed : 42
 
 ## 2. Installation
-> (Langkah instalasi, misal: "pip install -r requirements.txt")
+
+pip install pandas numpy nltk scikit-learn matplotlib seaborn wordcloud
+
+atau
+
+pip install -r requirements.txt
 
 ## 3. Data
-> (Deskripsi data: sumber, format, ukuran)
+
+Dataset Baseline:
+26de4894-652b-4236-bbdc-6fe3a5d63945.csv
+
+Jumlah Data:
+26.350 teks
+
+Kolom:
+- statement
+- status
+
+Dataset Intervensi:
+personality_disorder_subset_2kolom_NPL.csv
+
+Jumlah Data:
+432 teks
+
+Kolom:
+- Thought
+- PD_Category
+
+Kategori Personality Disorder:
+- NPD
+- PPD
+- BPD
+- ASPD
+- AVPD
+- Schizoid
+- HPD
 
 ## 4. Execution
-> (Command untuk menjalankan eksperimen)
+
+python main.py
+
+atau pada Google Colab:
+Run All Cells
 
 ## 5. Configuration
-> (File config yang digunakan + parameter kunci)
+
+config.yaml
+
+random_seed = 42
+max_features = 5000
+ngram_range = (1,2)
+test_size = 0.2
 
 ## 6. Expected Output
-> (Contoh output yang diharapkan + format)
+
+1. Distribusi sentimen pada dataset kesehatan mental
+2. Distribusi kategori Personality Disorder
+3. Keyword dominan menggunakan TF-IDF
+4. Analisis N-Gram
+5. Word Cloud
+6. Perbandingan baseline dan intervensi
+7. Grafik visualisasi hasil analisis
+
+Output:
+- sentiment_result.csv
+- keyword_result.csv
+- wordcloud.png
+- ngram_analysis.png
 ```
 
 ---
@@ -188,7 +268,16 @@ Tulis README minimum untuk eksperimen Anda (6 komponen wajib).
 ## Refleksi
 
 > Apakah eksperimen Anda saat ini bisa direproduksi oleh orang lain tanpa bantuan Anda? Komponen apa yang masih hilang?
+Sebagian besar eksperimen sudah dapat direproduksi karena dataset yang digunakan, metode Natural Language Processing (NLP), tahapan preprocessing, serta parameter analisis telah ditentukan dan didokumentasikan. Penelitian juga menggunakan dua dataset yang jelas, yaitu dataset kesehatan mental umum sebagai baseline dan dataset teks terindikasi personality disorder sebagai data intervensi. Namun, agar penelitian benar-benar mencapai reproducibility, masih diperlukan dokumentasi teknis yang lebih lengkap terkait environment dan konfigurasi eksperimen.
 
-**Level saat ini:** [ ] Repeatability / [ ] Reproducibility / [ ] Belum keduanya
+**Level saat ini:** [☑] Repeatability / [ ] Reproducibility / [ ] Belum keduanya
+
 **Komponen yang belum terdokumentasi:**
-> ___________________________________________________
+> 
+- File requirements.txt yang berisi versi library yang digunakan.
+- File konfigurasi (config.yaml) untuk parameter eksperimen.
+- Dokumentasi versi Python dan sistem operasi.
+- Dokumentasi langkah preprocessing secara rinci.
+- Dokumentasi proses filtering dataset personality disorder menggunakan NLP.
+- Struktur folder proyek dan penyimpanan output hasil analisis.
+- Panduan reproduksi eksperimen dalam bentuk README yang lebih lengkap.

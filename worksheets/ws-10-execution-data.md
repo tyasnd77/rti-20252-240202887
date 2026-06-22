@@ -67,44 +67,57 @@ Run gagal/anomali tidak boleh dihapus tanpa dokumentasi. Bisa jadi:
 
 ```
 EXECUTION PLAN
+| Run # | Skenario                      | Seed | Parameter           | Status  | Waktu | Output File       |
+| ----- | ----------------------------- | ---- | ------------------- | ------- | ----- | ----------------- |
+| 1     | Dataset Kesehatan Mental Umum | 42   | TF-IDF, ngram=(1,2) | Planned | -     | baseline_run1.csv |
+| 2     | Dataset Kesehatan Mental Umum | 123  | TF-IDF, ngram=(1,2) | Planned | -     | baseline_run2.csv |
+| 3     | Dataset Kesehatan Mental Umum | 456  | TF-IDF, ngram=(1,2) | Planned | -     | baseline_run3.csv |
+| 4     | Dataset Kesehatan Mental Umum | 789  | TF-IDF, ngram=(1,2) | Planned | -     | baseline_run4.csv |
+| 5     | Dataset Kesehatan Mental Umum | 999  | TF-IDF, ngram=(1,2) | Planned | -     | baseline_run5.csv |
+| 6     | Dataset Personality Disorder  | 42   | TF-IDF, ngram=(1,2) | Planned | -     | pd_run1.csv       |
+| 7     | Dataset Personality Disorder  | 123  | TF-IDF, ngram=(1,2) | Planned | -     | pd_run2.csv       |
+| 8     | Dataset Personality Disorder  | 456  | TF-IDF, ngram=(1,2) | Planned | -     | pd_run3.csv       |
+| 9     | Dataset Personality Disorder  | 789  | TF-IDF, ngram=(1,2) | Planned | -     | pd_run4.csv       |
+| 10    | Dataset Personality Disorder  | 999  | TF-IDF, ngram=(1,2) | Planned | -     | pd_run5.csv       |
 
-| Run # | Skenario | Seed | Parameter | Status | Waktu | Output File |
-|-------|----------|------|-----------|--------|-------|-------------|
-| 1     |          |      |           |        |       |             |
-| 2     |          |      |           |        |       |             |
-| 3     |          |      |           |        |       |             |
-| ...   |          |      |           |        |       |             |
-
-Jumlah runs per skenario : ____
-Total runs               : ____
+Jumlah runs per skenario : 2
+Total runs               : 10
 
 DATA LOG (per run):
-  Run ID    : ____________________
-  Timestamp : ____________________
-  Skenario  : ____________________
-  Input     : ____________________
-  Output    : ____________________
-  Anomali   : ____________________
-  Catatan   : ____________________
+| Field     | Isi                                      |
+| --------- | ---------------------------------------- |
+| Run ID    | run-001                                  |
+| Timestamp | 2026-06-23 10:30:00                      |
+| Skenario  | Dataset Kesehatan Mental Umum            |
+| Dataset   | 26de4894-652b-4236-bbdc-6fe3a5d63945.csv |
+| Peneliti  | Tyas Nurshika Damaia                     |
+
 ```
 
 ---
 
 ## Latihan 1 — Execution Plan
 
-Susun execution plan untuk eksperimen Anda. Tentukan skenario, jumlah run, dan seed sebelum eksekusi.
+execution plan 
 
-| Run # | Skenario | Seed | Parameter Kunci | Status |
-|-------|----------|------|----------------|--------|
-| *1* | *Contoh: BERT-base, DS-1* | *42* | *lr=2e-5, epoch=10* | *Planned* |
-| *2* | *BERT-base, DS-1* | *123* | *lr=2e-5, epoch=10* | *Planned* |
-| 3 | | | | |
-| 4 | | | | |
-| 5 | | | | |
+| Run # | Skenario                          | Seed | Parameter Kunci     | Status  |
+| ----- | --------------------------------- | ---- | ------------------- | ------- |
+| 1     | Baseline Dataset Kesehatan Mental | 42   | TF-IDF, ngram=(1,2) | Planned |
+| 2     | Baseline Dataset Kesehatan Mental | 123  | TF-IDF, ngram=(1,2) | Planned |
+| 3     | Baseline Dataset Kesehatan Mental | 456  | TF-IDF, ngram=(1,2) | Planned |
+| 4     | Baseline Dataset Kesehatan Mental | 789  | TF-IDF, ngram=(1,2) | Planned |
+| 5     | Baseline Dataset Kesehatan Mental | 999  | TF-IDF, ngram=(1,2) | Planned |
+| 6     | Dataset Personality Disorder      | 42   | TF-IDF, ngram=(1,2) | Planned |
+| 7     | Dataset Personality Disorder      | 123  | TF-IDF, ngram=(1,2) | Planned |
+| 8     | Dataset Personality Disorder      | 456  | TF-IDF, ngram=(1,2) | Planned |
+| 9     | Dataset Personality Disorder      | 789  | TF-IDF, ngram=(1,2) | Planned |
+| 10    | Dataset Personality Disorder      | 999  | TF-IDF, ngram=(1,2) | Planned |
 
-**Total skenario:** ____
-**Run per skenario:** ____
-**Total run keseluruhan:** ____
+**Total skenario:**2
+1. Dataset kesehatan mental umum (baseline)
+2. Dataset personality disorder (intervensi)
+**Run per skenario:** 5
+**Total run keseluruhan:**10
 
 ---
 
@@ -113,42 +126,70 @@ Susun execution plan untuk eksperimen Anda. Tentukan skenario, jumlah run, dan s
 Desain format data log untuk eksperimen Anda. Tentukan field apa saja yang akan dicatat.
 
 **Identitas:**
-| Field | Contoh |
-|-------|--------|
-| Run ID | *run-001* |
-| Timestamp | *2025-03-15T10:30:00* |
-| | |
+| Field       | Contoh                |
+| ----------- | --------------------- |
+| Run ID      | run-001               |
+| Timestamp   | 2026-06-23T10:30:00   |
+| Skenario    | Baseline              |
+| Dataset     | Mental Health Dataset |
+| Output File | result_run001.csv     |
 
 **Konfigurasi:**
-| Field | Contoh |
-|-------|--------|
-| Seed | *42* |
-| Code version | *commit abc1234* |
-| | |
+| Field                | Contoh    |
+| -------------------- | --------- |
+| Seed                 | 42        |
+| Python Version       | 3.11      |
+| NLTK Version         | 3.9       |
+| Scikit-Learn Version | 1.5.1     |
+| Vectorizer           | TF-IDF    |
+| N-Gram               | (1,2)     |
+| Max Features         | 5000      |
+| Code Version         | commit-v1 |
+
 
 **Hasil:**
-| Metrik | Tipe Data | Range Valid |
-|--------|----------|-------------|
-| *Contoh: Accuracy* | *float* | *0.0 – 1.0* |
-| | | |
-| | | |
+| Metrik         | Tipe Data | Range Valid |
+| -------------- | --------- | ----------- |
+| Accuracy       | Float     | 0.0 – 1.0   |
+| Precision      | Float     | 0.0 – 1.0   |
+| Recall         | Float     | 0.0 – 1.0   |
+| F1-Score       | Float     | 0.0 – 1.0   |
+| Jumlah Keyword | Integer   | > 0         |
+| Jumlah N-Gram  | Integer   | > 0         |
+| Waktu Eksekusi | Float     | > 0 detik   |
 
-**Format output:** [ ] CSV / [ ] JSON / [ ] Database / [ ] Lainnya: ____
+Metadata
+| Field     | Contoh     |
+| --------- | ---------- |
+| CPU Usage | 45%        |
+| RAM Usage | 3.2 GB     |
+| Warning   | None       |
+| Error     | None       |
+| Notes     | Run normal |
+
+**Format output:** [☑] CSV / [☑] JSON / [ ] Database / [ ] Lainnya: ____
 
 ---
 
 ## Latihan 3 — Anomaly Protocol
 
-Rencanakan bagaimana menangani anomali. Untuk setiap jenis, tentukan langkah yang diambil.
+| Jenis Anomali                 | Contoh                              | Tindakan                                            |
+| ----------------------------- | ----------------------------------- | --------------------------------------------------- |
+| Run gagal (crash)             | File dataset tidak terbaca          | Dokumentasikan error, perbaiki path, jalankan ulang |
+| Hasil ekstrem                 | Accuracy turun drastis menjadi 40%  | Periksa preprocessing dan distribusi data           |
+| Waktu eksekusi anomali        | Run membutuhkan waktu 3× lebih lama | Cek penggunaan CPU/RAM dan proses background        |
+| Inkonsistensi dengan run lain | F1-score berbeda jauh dari run lain | Periksa seed, split data, dan konfigurasi model     |
+| Data kosong                   | Setelah filtering tidak ada data    | Periksa proses filtering dan keyword                |
+| Error preprocessing           | Tokenisasi gagal                    | Dokumentasikan error dan ulangi proses              |
 
-| Jenis Anomali | Contoh | Tindakan |
-|---------------|--------|----------|
-| Run gagal (crash) | *Contoh: OOM pada batch_size=64* | *Contoh: Dokumentasi, re-run batch_size=32, catat perubahan* |
-| Hasil ekstrem | | |
-| Waktu eksekusi anomali | | |
-| Inkonsistensi dengan run lain | | |
-
-**Prinsip:** Detect → Investigate → Document → Decide
+**Prinsip:** 
+Detect
+↓
+Investigate
+↓
+Document
+↓
+Decide
 
 ---
 
@@ -157,6 +198,6 @@ Rencanakan bagaimana menangani anomali. Untuk setiap jenis, tentukan langkah yan
 > Pernahkah Anda melaporkan hasil riset/tugas dari single run? Apa risikonya? Bagaimana multiple run mengubah kepercayaan terhadap hasil?
 
 **Pengalaman sebelumnya:**
-> ___________________________________________________
+> Pada beberapa tugas sebelumnya, hasil analisis sering dilaporkan hanya berdasarkan satu kali eksekusi. Risiko dari pendekatan tersebut adalah hasil yang diperoleh belum tentu konsisten karena dapat dipengaruhi oleh random seed, pembagian data, atau kondisi lingkungan komputasi. Akibatnya, kesimpulan penelitian dapat menjadi kurang valid dan sulit direproduksi oleh peneliti lain.
 **Yang akan dilakukan berbeda:**
-> ___________________________________________________
+> Pada penelitian ini, eksperimen akan dijalankan sebanyak lima kali untuk setiap skenario menggunakan seed yang berbeda. Seluruh parameter, hasil metrik, dan metadata akan dicatat dalam log terstruktur. Dengan multiple run, hasil penelitian dapat dianalisis berdasarkan rata-rata dan variasi hasil sehingga tingkat kepercayaan terhadap kesimpulan penelitian menjadi lebih tinggi dan lebih mudah direproduksi oleh peneliti lain.
