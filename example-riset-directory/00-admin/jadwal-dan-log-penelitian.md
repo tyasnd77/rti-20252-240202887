@@ -1,33 +1,82 @@
-# Jadwal & Log Pelaksanaan Penelitian
+# Jadwal dan Log Pelaksanaan Penelitian
 
-Catatan kronologis pelaksanaan tiap tahap (sumber: riwayat commit git & dokumen `09-docs/tahap-N-*.md`). Tanggal mengikuti `git log`.
+Catatan kronologis pelaksanaan penelitian mulai dari penentuan topik hingga validasi data eksperimen.
 
 ## Log Pelaksanaan
 
-| Tanggal | Tahap | Aktivitas | Referensi |
-|---|---|---|---|
-| 2026-06-12 s.d. 2026-06-13 (commit 01:05) | Tahap 1 & 2 | Perancangan arsitektur/skema database; implementasi API Gateway Go (Echo) — clean architecture, migrasi Sqitch, seed script, docker-compose, verifikasi end-to-end (`CACHE_MODE=none`/`hybrid`, fail-closed/fail-open) | [09-docs/tahap-1-arsitektur-dan-skema-database.md](../09-docs/tahap-1-arsitektur-dan-skema-database.md), [09-docs/tahap-2-implementasi-gateway.md](../09-docs/tahap-2-implementasi-gateway.md) |
-| 2026-06-13 01:05 | Tahap 3 | Implementasi skrip k6 (`legitimate.js`, `attack.js`, `mixed.js`), runner & monitor resource | [09-docs/tahap-3-pengujian-k6.md](../09-docs/tahap-3-pengujian-k6.md) |
-| 2026-06-12 18:05–18:59 (≈54 menit) | Tahap 3 | Eksekusi matrix penuh 50 run (2 `CACHE_MODE` × 5 `traffic_variant` × 5 replikasi), seluruhnya `k6_exit_code = 0` | commit "Mark Tahap 3 complete after running full 50-run k6 matrix" (2026-06-13 02:00) |
-| 2026-06-13 07:41 | Tahap 4 | Pipeline analisis Python (`run_all.py`), 6 tabel CSV + 5 figure PNG, dokumen Tahap 4 diperbarui ke status Selesai | [09-docs/tahap-4-analisis-data.md](../09-docs/tahap-4-analisis-data.md), [06-output/](../06-output/) |
-| 2026-06-13 | Tahap 5 | Draf konten naskah (8 bagian) di `07-manuskrip/`; pelengkapan `01-proposal/`, `02-literatur/`, `03-teori/`, dan laporan penelitian `08-laporan/` | [09-docs/tahap-5-draf-paper.md](../09-docs/tahap-5-draf-paper.md), [08-laporan/laporan-penelitian.md](../08-laporan/laporan-penelitian.md) |
-| 2026-06-13 | Tahap 5 | Verifikasi CVE-2026-48524 (terkonfirmasi via GHSA-fhv5-28vv-h8m8); pencarian 18 referensi literatur nyata & penyusunan bibliografi Mendeley; pelengkapan §2.4 *Related Work* di `03-tinjauan-pustaka.md` dan `07-daftar-pustaka.md`; penyusunan naskah konsolidasi `naskah-jurnal.md`/`.docx` | [02-literatur/matriks-literatur.md](../02-literatur/matriks-literatur.md), [02-literatur/daftar-pustaka.bib](../02-literatur/daftar-pustaka.bib), [07-manuskrip/naskah-jurnal.md](../07-manuskrip/naskah-jurnal.md) |
-| 2026-06-15 | Tahap 3 & 4 | Perluasan replikasi dari 5 menjadi 40 per kombinasi: regenerasi token JWT legitimate (sebelumnya *expired*), flush cache Redis, eksekusi matrix penuh 400 run (2 `CACHE_MODE` × 5 `traffic_variant` × 40 replikasi) via `run-matrix.sh`, seluruhnya `k6_exit_code = 0` (selesai 2026-06-15T09:53:24Z); dataset 50-run lama diarsipkan ke `04-data/_archive-50run-20260612/`; pipeline analisis (`run_all.py`) dijalankan ulang atas dataset baru; seluruh statistik di `naskah-jurnal.md`/`.docx`, `00-outline.md`, dan dokumen `09-docs/`/`08-laporan/`/`01-proposal/` diperbarui ke n=40 | [09-docs/tahap-3-pengujian-k6.md](../09-docs/tahap-3-pengujian-k6.md), [09-docs/tahap-4-analisis-data.md](../09-docs/tahap-4-analisis-data.md), [04-data/matrix-40run.log](../04-data/matrix-40run.log) |
+| Tanggal | Tahap | Aktivitas | Output |
+|----------|---------|---------|---------|
+| 29 maret 2026 | Tahap 1 | Identifikasi masalah dan penentuan topik penelitian mengenai analisis sentimen serta karakteristik linguistik pada data kesehatan mental dan personality disorder | Judul penelitian dan rumusan masalah |
+| 5 April 2026 | Tahap 2 | Studi literatur terkait Natural Language Processing (NLP), sentiment analysis, TF-IDF, N-Gram, Word Cloud, dan personality disorder | Landasan teori dan referensi penelitian |
+| 11 Mei 2026 | Tahap 3 | Pengumpulan dataset kesehatan mental umum dan dataset personality disorder | Dataset penelitian |
+| 11 Mei 2026 | Tahap 4 | Seleksi atribut dan penyesuaian format dataset agar siap diproses | Dataset siap preprocessing |
+| 11 Mei 2026 | Tahap 5 | Preprocessing data meliputi case folding, cleaning, tokenization, stopword removal, dan stemming | Dataset hasil preprocessing |
+| 8 Juni 2026 | Tahap 6 | Penyusunan environment penelitian, dokumentasi dependency, dan konfigurasi eksperimen | Environment specification |
+| 8 Juni 2026 | Tahap 7 | Penyusunan execution plan, repeatability test, dan data logging | Dokumen eksperimen |
+| 15 Juni 2026 | Tahap 8 | Analisis sentimen menggunakan metode NLP dan ekstraksi fitur TF-IDF | Hasil analisis sentimen |
+| 15 Juni 2026 | Tahap 9 | Analisis karakteristik linguistik menggunakan N-Gram dan Word Cloud | Visualisasi dan daftar keyword dominan |
+| 22 Juni 2026 | Tahap 10 | Validasi data, pengecekan konsistensi hasil, dan deteksi anomali | Validation report |
+| 22 Juni 2026 | Tahap 11 | Penyusunan laporan penelitian dan dokumentasi hasil eksperimen | Draft laporan penelitian |
 
 ## Status Ringkas
 
-- **Tahap 1–4**: Selesai (dataset final: matrix 400 run / 40 replikasi per kombinasi, 2026-06-15).
-- **Tahap 5**: Konten naskah selesai dengan statistik n=40 (termasuk tinjauan pustaka & verifikasi CVE-2026-48524); menyisakan keputusan bahasa final dan pemindahan ke template jurnal tujuan (dilakukan oleh peneliti).
+- **Tahap 1–7**: Selesai (perencanaan penelitian, pengumpulan data, preprocessing, environment, dan execution plan).
+- **Tahap 8–9**: Dalam proses (analisis sentimen dan karakteristik linguistik).
+- **Tahap 10**: Validasi data telah dirancang dan siap diterapkan pada hasil eksperimen.
+- **Tahap 11**: Penyusunan laporan penelitian sedang berlangsung.
 
-## Item Tindak Lanjut (Checklist Sebelum Submission)
+## Item Tindak Lanjut (Checklist Sebelum Seminar/Submission)
 
-- [x] Lengkapi matriks literatur dengan paper *related work* nyata ([02-literatur/matriks-literatur.md](../02-literatur/matriks-literatur.md)) — 18 referensi terverifikasi
-- [x] Verifikasi CVE-2026-48524 terhadap basis data NVD/MITRE — terkonfirmasi via GHSA-fhv5-28vv-h8m8 (PyJWT, CVSS 3.7)
-- [ ] Tetapkan bahasa final naskah (Indonesia/Inggris) sesuai jurnal tujuan
-- [ ] Pindahkan konten [07-manuskrip/naskah-jurnal.md](../07-manuskrip/naskah-jurnal.md)/`.docx` ke template jurnal tujuan
-- [ ] Finalisasi penempatan figure/tabel sesuai gaya jurnal
-- [ ] Review akhir seluruh klaim numerik agar konsisten antar dokumen (lihat daftar pada [07-manuskrip/00-outline.md](../07-manuskrip/00-outline.md))
+- [x] Menentukan topik dan tujuan penelitian
+- [x] Mengumpulkan dataset kesehatan mental umum
+- [x] Mengumpulkan dataset personality disorder
+- [x] Menentukan metode NLP yang digunakan
+- [x] Menyusun environment penelitian
+- [x] Menentukan dependency dan versi library
+- [x] Menyusun README eksperimen
+- [x] Menyusun execution plan
+- [x] Menyusun data logging
+- [x] Menyusun prosedur validasi data
+- [ ] Menjalankan seluruh eksperimen sesuai execution plan
+- [ ] Mengumpulkan hasil setiap run
+- [ ] Menghitung rata-rata dan standar deviasi hasil eksperimen
+- [ ] Melakukan analisis perbandingan kedua dataset
+- [ ] Menyusun visualisasi hasil penelitian
+- [ ] Menyelesaikan Bab Hasil dan Pembahasan
+- [ ] Finalisasi laporan penelitian
 
-## Korespondensi
+## Progress Penelitian
 
-*(belum ada — tambahkan catatan korespondensi dengan pembimbing/editor jurnal di sini saat tersedia)*
+### Dataset
+
+**Dataset Baseline**
+- Nama file: `26de4894-652b-4236-bbdc-6fe3a5d63945.csv`
+- Jumlah data: 26.350 teks
+- Kolom: `statement`, `status`
+
+**Dataset Personality Disorder**
+- Nama file: `personality_disorder_subset_2kolom_NPL.csv`
+- Jumlah data: 432 teks
+- Kolom: `Thought`, `PD_Category`
+
+### Metode yang Digunakan
+
+- Text Preprocessing
+- Sentiment Analysis
+- TF-IDF
+- N-Gram Analysis
+- Word Cloud
+- Visualisasi Data
+
+### Environment
+
+- OS: Windows 11
+- Python: 3.11
+- Framework: NLTK dan Scikit-Learn
+- Random Seed: 42
+
+### Status Saat Ini
+
+Penelitian telah menyelesaikan tahap persiapan dan perancangan eksperimen, termasuk dokumentasi environment, execution plan, serta validasi data. Dataset telah siap digunakan untuk proses analisis. Tahap berikutnya adalah menjalankan eksperimen NLP, mengumpulkan hasil analisis, melakukan interpretasi hasil, dan menyusun laporan akhir penelitian.
+
+**Estimasi progres penelitian saat ini: ±85% selesai.**
